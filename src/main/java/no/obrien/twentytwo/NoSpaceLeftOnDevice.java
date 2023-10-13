@@ -7,6 +7,7 @@ import java.util.Map;
 import lombok.Data;
 import lombok.ToString;
 import lombok.experimental.UtilityClass;
+import no.obrien.datastructures.Directory;
 import no.obrien.utils.FileUtils;
 
 @UtilityClass
@@ -102,29 +103,6 @@ public class NoSpaceLeftOnDevice {
     while (parent != null) {
       parent.setSize(parent.getSize() + fileSize);
       parent = parent.getParent();
-    }
-  }
-
-  @Data
-  @ToString(exclude = {"children", "files", "parent"})
-  class Directory {
-
-    private final String name;
-    private final Map<String, Directory> children;
-    private final Map<String, Integer> files;
-    private final Directory parent;
-    private long size;
-
-    public Directory(String name) {
-      this(name, null);
-    }
-
-    public Directory(String name, Directory parent) {
-      this.name = name;
-      this.children = new HashMap<>();
-      this.files = new HashMap<>();
-      this.parent = parent;
-      this.size = 0;
     }
   }
 }
