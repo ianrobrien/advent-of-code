@@ -21,7 +21,7 @@ public class FileUtils {
       if (inputStream != null) {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
           String line;
-          while ((line = reader.readLine()) != null) {
+          while ((line = reader.readLine()) != null && !line.isEmpty()) {
             items.add(line);
           }
         } catch (IOException e) {
