@@ -1,8 +1,10 @@
 package no.obrien.datastructures;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-@Value
+@Data
+@AllArgsConstructor
 public class Tuple<T> {
 
   T x;
