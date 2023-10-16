@@ -24,7 +24,7 @@ jobs:
         with:
           filters: |
             src:
-              - 'aoc/**'
+              - 'src/**'
 
   vale:
     runs-on: ubuntu-latest
