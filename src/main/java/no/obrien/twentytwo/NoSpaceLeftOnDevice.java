@@ -1,17 +1,16 @@
 package no.obrien.twentytwo;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import lombok.Data;
-import lombok.ToString;
 import lombok.experimental.UtilityClass;
 import no.obrien.datastructures.Directory;
 import no.obrien.utils.FileUtils;
 
 @UtilityClass
 public class NoSpaceLeftOnDevice {
+
+  public static final int TOTAL_DISK_SPACE = 70000000;
+  public static final int REQUIRED_DISK_SPACE = 30000000;
 
   public long partOne(String inputFilePath) {
     var lines = FileUtils.parseInputFile(inputFilePath);
@@ -22,9 +21,7 @@ public class NoSpaceLeftOnDevice {
   public long partTwo(String inputFilePath) {
     var lines = FileUtils.parseInputFile(inputFilePath);
     final var root = createDirectorySystem(lines);
-    long totalDiskSpace = 70000000;
-    long requiredDiskSpace = 30000000;
-    long spaceToFree = requiredDiskSpace - (totalDiskSpace - root.getSize());
+    long spaceToFree = REQUIRED_DISK_SPACE - (TOTAL_DISK_SPACE - root.getSize());
 
     var directories = new ArrayList<Directory>();
     walkFileTree(root, directories);

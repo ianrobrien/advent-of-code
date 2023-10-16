@@ -56,6 +56,21 @@ public class RucksackReorganization {
     return score;
   }
 
+  private int calculatePriorityPartOne(String itemsString) {
+    String compartment1 = itemsString.substring(0, itemsString.length() / 2);
+    String compartment2 = itemsString.substring(itemsString.length() / 2);
+
+    char[] items = compartment1.toCharArray();
+    Character duplicate = null;
+    for (int i = 0; i < items.length; i++) {
+      if (compartment2.contains(String.valueOf(items[i]))) {
+        duplicate = compartment1.charAt(i);
+      }
+    }
+
+    return PRIORITY_VALUES.get(duplicate);
+  }
+
   private int calculatePriorityPartTwo(String first, String second, String third) throws Exception {
     char[] items = first.toCharArray();
 
@@ -71,20 +86,5 @@ public class RucksackReorganization {
     }
 
     throw new Exception("No duplicate found");
-  }
-
-  private int calculatePriorityPartOne(String itemsString) {
-    String compartment1 = itemsString.substring(0, itemsString.length() / 2);
-    String compartment2 = itemsString.substring(itemsString.length() / 2);
-
-    char[] items = compartment1.toCharArray();
-    Character duplicate = null;
-    for (int i = 0; i < items.length; i++) {
-      if (compartment2.contains(String.valueOf(items[i]))) {
-        duplicate = compartment1.charAt(i);
-      }
-    }
-
-    return PRIORITY_VALUES.get(duplicate);
   }
 }

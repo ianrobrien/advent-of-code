@@ -9,10 +9,8 @@ import no.obrien.utils.FileUtils;
 @Slf4j
 public class CampCleanup {
 
-  private static final String INPUT_FILE_PATH = "twentytwo/camp_cleanup.txt";
-
-  public int partOne() {
-    List<String> assignments = FileUtils.parseInputFile(INPUT_FILE_PATH);
+  public int partOne(String inputFilePath) {
+    List<String> assignments = FileUtils.parseInputFile(inputFilePath);
 
     int overlapCount = 0;
     for (String assignment : assignments) {
@@ -51,8 +49,8 @@ public class CampCleanup {
     return overlapCount;
   }
 
-  public int partTwo() {
-    List<String> assignments = FileUtils.parseInputFile(INPUT_FILE_PATH);
+  public int partTwo(String inputFilePath) {
+    List<String> assignments = FileUtils.parseInputFile(inputFilePath);
 
     int overlapCount = 0;
     for (String assignment : assignments) {
