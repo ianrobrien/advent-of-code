@@ -12,7 +12,15 @@ import no.obrien.utils.FileUtils;
 @Slf4j
 public class CalorieCounting {
 
-  public int CalculateCalorieCounts(int numberOfElves, String filePath) {
+  public int partOne(String filePath) {
+    return CalculateCalorieCounts(1, FileUtils.parseInputFile(filePath));
+  }
+
+  public int partTwo(String filePath) {
+    return CalculateCalorieCounts(3, FileUtils.parseInputFile(filePath));
+  }
+
+  private int CalculateCalorieCounts(int numberOfElves, List<String> filePath) {
     var calorieCounts = groupCalorieCounts(filePath);
     calorieCounts.sort(Collections.reverseOrder());
     return calorieCounts.stream()
@@ -21,18 +29,17 @@ public class CalorieCounting {
         .sum();
   }
 
-  private List<Integer> groupCalorieCounts(String filePath) {
+  private List<Integer> groupCalorieCounts(List<String> filePath) {
     var calories = new ArrayList<Integer>();
     final AtomicInteger caloriesCount = new AtomicInteger();
-    FileUtils.parseInputFile(filePath)
-        .forEach(line -> {
-          if (line.isBlank()) {
-            calories.add(caloriesCount.get());
-            caloriesCount.set(0);
-          } else {
-            caloriesCount.set(caloriesCount.get() + Integer.parseInt(line));
-          }
-        });
+    filePath.forEach(line -> {
+      if (line.isBlank()) {
+        calories.add(caloriesCount.get());
+        caloriesCount.set(0);
+      } else {
+        caloriesCount.set(caloriesCount.get() + Integer.parseInt(line));
+      }
+    });
 
     return calories;
   }
