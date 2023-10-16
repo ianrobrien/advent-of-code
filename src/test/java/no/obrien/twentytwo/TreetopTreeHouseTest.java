@@ -10,7 +10,7 @@ class TreetopTreeHouseTest {
 
   @Test
   void testPartOne() {
-    assertEquals(0, TreetopTreeHouse.partOne(INPUT_FILE_PATH + "treetop_tree_house.txt"));
+    assertEquals(1715, TreetopTreeHouse.partOne(INPUT_FILE_PATH + "treetop_tree_house.txt"));
   }
 
   @Test
