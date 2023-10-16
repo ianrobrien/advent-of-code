@@ -37,4 +37,14 @@ class TreetopTreeHouseTest {
   void testPartRight() {
     assertEquals(9, TreetopTreeHouse.partOne(INPUT_FILE_PATH + "treetop_tree_house_right.txt"));
   }
+
+  @Test
+  void testPartTwoSample() {
+    assertEquals(8, TreetopTreeHouse.partTwo(INPUT_FILE_PATH + "treetop_tree_house_sample.txt"));
+  }
+
+  @Test
+  void testPartTwo() {
+    assertEquals(374400, TreetopTreeHouse.partTwo(INPUT_FILE_PATH + "treetop_tree_house.txt"));
+  }
 }
