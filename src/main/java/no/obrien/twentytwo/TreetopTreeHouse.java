@@ -16,11 +16,14 @@ public class TreetopTreeHouse {
   private int countVisibleTrees(int[][] forest) {
     int visibleTrees = 0;
 
-    for (int i = 0; i < forest.length; i++) {
-      for (int j = 0; j < forest.length; j++) {
-        if (i == 0 || j == 0 || i == forest.length - 1 || j == forest.length - 1) {
-          visibleTrees++;
-        } else if (checkXandY(forest, i, j)) {
+    for (int row = 0; row < forest.length; row++) {
+      for (int column = 0; column < forest[0].length; column++) {
+        if (isEdgeTree(forest, row, column) ||
+            isVisibleUp(forest, row, column) ||
+            isVisibleDown(forest, row, column) ||
+            isVisibleLeft(forest, row, column) ||
+            isVisibleRight(forest, row, column)
+        ) {
           visibleTrees++;
         }
       }
@@ -29,54 +32,86 @@ public class TreetopTreeHouse {
     return visibleTrees;
   }
 
-  private boolean checkXandY(int[][] forest, int x, int y) {
-    // check positive x
-    int tree = forest[x][y];
-    boolean visible = true;
-    for (int i = 0; i < x; i++) {
-      if (forest[i][y] >= tree) {
-        visible = false;
-        break;
-      }
-    }
-    if (visible) {
+  private static boolean isEdgeTree(int[][] forest, int row, int column) {
+    boolean edgeTree =
+        row == 0 || column == 0 || row == forest.length - 1 || column == forest[0].length - 1;
+    if (edgeTree) {
+      System.out.println("Tree at " + row + ", " + column + " is on the edge");
       return true;
     }
-    // check negative x
-    visible = true;
-    for (int i = x; i < forest.length; i++) {
-      if (forest[i][y] >= tree) {
-        visible = false;
-        break;
+    return false;
+  }
+
+  public boolean isVisibleUp(int[][] forest, int row, int column) {
+    int height = forest[row][column];
+    System.out.println("Checking trees up from " + row + ", " + column);
+
+    for (int i = row - 1; i >= 0; i--) {
+      if (forest[i][column] >= height) {
+        System.out.println(
+            "Tree at " + i + ", " + column + ", "
+                + "with height " + forest[i][column] + " "
+                + "is taller than " + height);
+        return false;
       }
     }
-    if (visible) {
-      return true;
-    }
-    // check positive y
-    visible = true;
-    for (int i = 0; i < y; i++) {
-      if (forest[x][i] >= tree) {
-        visible = false;
-        break;
+
+    return true;
+  }
+
+  public boolean isVisibleDown(int[][] forest, int row, int column) {
+    int height = forest[row][column];
+    System.out.println("Checking trees down from " + row + ", " + column);
+
+    for (int i = row + 1; i < forest.length - 1; i++) {
+      if (forest[i][column] >= height) {
+        System.out.println(
+            "Tree at " + i + ", " + column + ", "
+                + "with height " + forest[i][column] + " "
+                + "is taller than " + height);
+        return false;
       }
     }
-    if (visible) {
-      return true;
-    }
-    // check negative y
-    visible = true;
-    for (int i = y; i < forest.length; i++) {
-      if (forest[x][i] >= tree) {
-        visible = false;
-        break;
+
+    return true;
+  }
+
+  public boolean isVisibleLeft(int[][] forest, int row, int column) {
+    int height = forest[row][column];
+    System.out.println("Checking trees left from " + row + ", " + column);
+
+    for (int i = column - 1; i >= 0; i--) {
+      if (forest[row][i] >= height) {
+        System.out.println(
+            "Tree at " + i + ", " + column + ", "
+                + "with height " + forest[row][i] + " "
+                + "is taller than " + height);
+        return false;
       }
     }
-    return visible;
+
+    return true;
+  }
+
+  public boolean isVisibleRight(int[][] forest, int row, int column) {
+    int height = forest[row][column];
+    System.out.println("Checking trees down from " + row + ", " + column);
+
+    for (int i = column; i < forest[0].length - 1; i++) {
+      if (forest[row][i] >= height) {
+        System.out.println(
+            "Tree at " + i + ", " + column + ", "
+                + "with height " + forest[row][i] + " "
+                + "is taller than " + height);
+        return false;
+      }
+    }
+
+    return true;
   }
 
   private int[][] createForest(List<String> trees) {
-    int[][] forest = new int[5][5];
+    int[][] forest = new int[trees.get(0).length()][trees.size()];
 
     for (int i = 0; i < trees.size(); i++) {
       String line = trees.get(i);
