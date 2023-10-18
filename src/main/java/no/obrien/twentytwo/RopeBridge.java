@@ -1,6 +1,7 @@
 package no.obrien.twentytwo;
 
 import java.util.List;
+import java.util.stream.IntStream;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -16,7 +17,7 @@ public class RopeBridge {
   }
 
   public int partTwo(List<String> lines) {
-    no.obrien.datastructures.RopeBridge ropeBridge = new no.obrien.datastructures.RopeBridge(9);
+    no.obrien.datastructures.RopeBridge ropeBridge = new no.obrien.datastructures.RopeBridge(10);
     lines.stream()
         .filter(l -> !l.isEmpty())
         .forEach(line -> parseInstruction(line, ropeBridge));

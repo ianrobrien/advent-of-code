@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 import no.obrien.utils.FileUtils;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 class RopeBridgeTest {
@@ -26,11 +25,17 @@ class RopeBridgeTest {
   }
 
   @Test
-  @Disabled
   void testPartTwo() {
     assertEquals(
-        6011,
+        2419,
         RopeBridge.partTwo(FileUtils.parseInputFile(INPUT_FILE_PATH + "rope_bridge.txt")));
+  }
+
+  @Test
+  void testPartTwoSimple() {
+    assertEquals(
+        1,
+        RopeBridge.partTwo(List.of("R 4", "U 4")));
   }
 
   @Test
