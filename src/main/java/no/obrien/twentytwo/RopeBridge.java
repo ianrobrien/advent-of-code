@@ -1,6 +1,7 @@
 package no.obrien.twentytwo;
 
 import java.util.List;
+import java.util.stream.IntStream;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -31,10 +32,10 @@ public class RopeBridge {
     int amount = Integer.parseInt(instruction.split(" ")[1]);
 
     switch (direction) {
-      case "U" -> ropeBridge.moveUp(amount);
-      case "D" -> ropeBridge.moveDown(amount);
-      case "L" -> ropeBridge.moveLeft(amount);
-      case "R" -> ropeBridge.moveRight(amount);
+      case "U" -> IntStream.range(0, amount).forEach(a -> ropeBridge.moveUp());
+      case "D" -> IntStream.range(0, amount).forEach(a -> ropeBridge.moveDown());
+      case "L" -> IntStream.range(0, amount).forEach(a ->ropeBridge.moveLeft());
+      case "R" -> IntStream.range(0, amount).forEach(a ->ropeBridge.moveRight());
     }
   }
 }

@@ -25,61 +25,37 @@ public class RopeBridge {
     return bridge.get(bridge.size() - 1);
   }
 
-  public void moveUp(int amount) {
-    for (int i = 0; i < amount; i++) {
-      move(0, 1);
-    }
+  public void moveUp() {
+    move(0, 1);
   }
 
-  public void moveDown(int amount) {
-    for (int i = 0; i < amount; i++) {
-      move(0, -1);
-    }
+  public void moveDown() {
+    move(0, -1);
   }
 
-  public void moveLeft(int amount) {
-    for (int i = 0; i < amount; i++) {
-      move(-1, 0);
-    }
+  public void moveLeft() {
+    move(-1, 0);
   }
 
-  public void moveRight(int amount) {
-    for (int i = 0; i < amount; i++) {
-      move(1, 0);
-    }
+  public void moveRight() {
+    move(1, 0);
   }
 
   private void move(int deltaX, int deltaY) {
-    for (int j = 0; j < bridge.size() - 1; j++) {
-      boolean isRequiresMove = false;
-
-      bridge.get(j).setX(bridge.get(j).getX() + deltaX);
-      if (Math.abs(bridge.get(j).getX() - bridge.get(j + 1).getX()) > 1) {
-        bridge.get(j + 1).setX(bridge.get(j + 1).getX() + deltaX);
-        bridge.get(j + 1).setY(bridge.get(j).getY());
-
-        isRequiresMove = j != bridge.size() - 2
-            && Math.abs(bridge.get(j + 1).getX() - bridge.get(j + 2).getX()) > 1;
+    for (int i = 0; i < bridge.size() - 1; i++) {
+      bridge.get(i).setX(bridge.get(i).getX() + deltaX);
+      if (Math.abs(bridge.get(i).getX() - bridge.get(i + 1).getX()) > 1) {
+        bridge.get(i + 1).setX(bridge.get(i + 1).getX() + deltaX);
+        bridge.get(i + 1).setY(bridge.get(i).getY());
       }
 
-      bridge.get(j).setY(bridge.get(j).getY() + deltaY);
-      if (Math.abs(bridge.get(j).getY() - bridge.get(j + 1).getY()) > 1) {
-        bridge.get(j + 1).setY(bridge.get(j + 1).getY() + deltaY);
-        bridge.get(j + 1).setX(bridge.get(j).getX());
-
-        isRequiresMove = j != bridge.size() - 2
-            && Math.abs(bridge.get(j + 1).getY() - bridge.get(j + 2).getY()) > 1;
+      bridge.get(i).setY(bridge.get(i).getY() + deltaY);
+      if (Math.abs(bridge.get(i).getY() - bridge.get(i + 1).getY()) > 1) {
+        bridge.get(i + 1).setY(bridge.get(i + 1).getY() + deltaY);
+        bridge.get(i + 1).setX(bridge.get(i).getX());
       }
-
-      if (j == bridge.size() - 2) {
-        hitMap.add(new Tuple<>(
-            bridge.get(bridge.size() - 1).getX(),
-            bridge.get(bridge.size() - 1).getY()));
-      }
-
-      if (!isRequiresMove) {
-        break;
-      }
+      
+      hitMap.add(new Tuple<>(this.getTail().getX(), this.getTail().getY()));
     }
   }
 }
