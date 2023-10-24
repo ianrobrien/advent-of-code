@@ -10,6 +10,6 @@ class MonkeyInTheMiddleTest {
 
   @Test
   void testPartOne() {
-    assertEquals(0, MonkeyInTheMiddle.partOne(INPUT_FILE_PATH));
+    assertEquals(100345, MonkeyInTheMiddle.partOne(INPUT_FILE_PATH));
   }
 }
