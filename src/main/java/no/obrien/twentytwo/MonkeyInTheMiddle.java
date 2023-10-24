@@ -1,6 +1,5 @@
 package no.obrien.twentytwo;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -20,10 +19,10 @@ public class MonkeyInTheMiddle {
         .filter(line -> !line.isEmpty())
         .toList();
 
-    var monkeys = createMonkeyList(lines, 3);
+    var monkeys = createMonkeyList(lines);
 
     int rounds = 20;
-    return playMonkeyInTheMiddle(monkeys, rounds);
+    return playMonkeyInTheMiddle(monkeys, rounds, 3);
   }
 
   public int partTwo(String inputFilePath) {
@@ -32,16 +31,19 @@ public class MonkeyInTheMiddle {
         .filter(line -> !line.isEmpty())
         .toList();
 
-    var monkeys = createMonkeyList(lines, 1);
+    var monkeys = createMonkeyList(lines);
 
     int rounds = 10000;
-    return playMonkeyInTheMiddle(monkeys, rounds);
+    return playMonkeyInTheMiddle(monkeys, rounds, 1);
   }
 
-  private static int playMonkeyInTheMiddle(List<Monkey> monkeys, int rounds) {
+  private static int playMonkeyInTheMiddle(
+      List<Monkey> monkeys,
+      int rounds,
+      int worryLevel) {
     for (int i = 0; i < rounds; i++) {
       for (Monkey monkey : monkeys) {
-        monkey.inspectItems(monkeys);
+        monkey.inspectItems(monkeys, worryLevel);
       }
       if (i % 1000 == 0) {
         System.out.println("Round " + i);
@@ -57,25 +59,25 @@ public class MonkeyInTheMiddle {
         * top2Monkeys.get(1).getInspectionCount();
   }
 
-  private List<Monkey> createMonkeyList(List<String> lines, int worryLevel) {
+  private List<Monkey> createMonkeyList(List<String> lines) {
     List<Monkey> monkeys = new ArrayList<>();
     int currentMonkey = -1;
     for (String line : lines) {
       if (line.startsWith("Monkey")) {
-        monkeys.add(new Monkey(BigInteger.valueOf(worryLevel)));
+        monkeys.add(new Monkey());
         String monkeyNumber = extractNumber(line);
         currentMonkey = Integer.parseInt(monkeyNumber);
       } else if (line.contains("Starting items:")) {
         Matcher numberMatcher = numberPattern.matcher(line);
-        List<BigInteger> startingItems = new ArrayList<>();
+        List<Long> startingItems = new ArrayList<>();
         while (numberMatcher.find()) {
-          BigInteger number = new BigInteger(numberMatcher.group());
+          Long number = Long.parseLong(numberMatcher.group());
           startingItems.add(number);
         }
         monkeys.get(currentMonkey).setItems(startingItems);
       } else if (line.contains("Operation:")) {
         int firstIndex = line.indexOf("old");
-        int secondIndex = line.indexOf("old" , firstIndex + "old".length());
+        int secondIndex = line.indexOf("old", firstIndex + "old".length());
         String value;
         if (secondIndex != -1) {
           value = "old";
@@ -95,7 +97,7 @@ public class MonkeyInTheMiddle {
         }
       } else if (line.contains("Test:")) {
         String divisor = extractNumber(line);
-        monkeys.get(currentMonkey).setDivisor(new BigInteger(divisor));
+        monkeys.get(currentMonkey).setDivisor(Long.parseLong(divisor));
       } else if (line.contains("If true:")) {
         String trueMonkey = extractNumber(line);
         monkeys.get(currentMonkey).setTrueMonkey(Integer.parseInt(trueMonkey));
