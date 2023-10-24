@@ -1,26 +1,31 @@
 package no.obrien.datastructures;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 @Data
+@RequiredArgsConstructor
 public class Monkey {
 
-  private List<Integer> items;
-  private Function<Integer, Integer> operation;
-  private int divisor;
+  private List<BigInteger> items;
+  private Function<BigInteger, BigInteger> operation;
+  private BigInteger divisor;
   private int trueMonkey;
   private int falseMonkey;
   private int itemIndex = 0;
   private int inspectionCount = 0;
+  private final BigInteger worryLevel;
 
   public void inspectItems(List<Monkey> monkeys) {
-    for (Integer item : items) {
+    for (BigInteger item : items) {
       item = this.operation.apply(item);
-      item = item / 3;
-      int monkeyRecipient = item % divisor == 0 ? trueMonkey : falseMonkey;
+      item = item.divide(worryLevel);
+      boolean isDivisible = item.remainder(divisor).equals(BigInteger.ZERO);
+      int monkeyRecipient = isDivisible ? trueMonkey : falseMonkey;
       monkeys.get(monkeyRecipient).getItems().add(item);
       inspectionCount++;
     }
@@ -29,17 +34,17 @@ public class Monkey {
 
   public void setMultiplyOperation(String value) {
     if (Objects.equals(value, "old")) {
-      this.operation = (Integer i) -> i * i;
+      this.operation = (BigInteger i) -> i.multiply(i);
     } else {
-      this.operation = (Integer i) -> i * Integer.parseInt(value);
+      this.operation = (BigInteger i) -> i.multiply(new BigInteger(value));
     }
   }
 
   public void setAddOperation(String value) {
     if (Objects.equals(value, "old")) {
-      this.operation = (Integer i) -> i + i;
+      this.operation = (BigInteger i) -> i.add(i);
     } else {
-      this.operation = (Integer i) -> i + Integer.parseInt(value);
+      this.operation = (BigInteger i) -> i.add(new BigInteger(value));
     }
   }
 }

@@ -2,6 +2,7 @@ package no.obrien.twentytwo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 class MonkeyInTheMiddleTest {
@@ -11,5 +12,11 @@ class MonkeyInTheMiddleTest {
   @Test
   void testPartOne() {
     assertEquals(100345, MonkeyInTheMiddle.partOne(INPUT_FILE_PATH));
+  }
+
+  @Disabled
+  @Test
+  void testPartPartTwo() {
+    assertEquals(100345, MonkeyInTheMiddle.partTwo(INPUT_FILE_PATH));
   }
 }
