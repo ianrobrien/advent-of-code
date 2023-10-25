@@ -13,31 +13,45 @@ public class MonkeyInTheMiddle {
 
   private final Pattern numberPattern = Pattern.compile("\\d+"); // Match one or more digits
 
-  public int partOne(String inputFilePath) {
+  public long partOne(String inputFilePath) {
     List<String> lines = FileUtils.parseInputFile(inputFilePath)
         .stream()
         .filter(line -> !line.isEmpty())
         .toList();
 
-    var monkeys = createMonkeyListPartOne(lines);
+    var monkeys = createMonkeyList(lines);
 
-    int rounds = 20;
-    for (int i = 0; i < rounds; i++) {
-      for (Monkey monkey : monkeys) {
-        monkey.inspectItems(monkeys);
-      }
-    }
-
-    List<Monkey> top2Monkeys = monkeys.stream()
-        .sorted((a, b) -> Integer.compare(b.getInspectionCount(), a.getInspectionCount()))
-        .limit(2)
-        .toList();
-
-    return top2Monkeys.get(0).getInspectionCount()
-        * top2Monkeys.get(1).getInspectionCount();
+    return playMonkeyInTheMiddle(monkeys, 20, 3);
   }
 
-  private List<Monkey> createMonkeyListPartOne(List<String> lines) {
+  public long partTwo(String inputFilePath) {
+    List<String> lines = FileUtils.parseInputFile(inputFilePath)
+        .stream()
+        .filter(line -> !line.isEmpty())
+        .toList();
+
+    var monkeys = createMonkeyList(lines);
+
+    return playMonkeyInTheMiddle(monkeys, 10_000, 1);
+  }
+
+  private static long playMonkeyInTheMiddle(List<Monkey> monkeys, int rounds, int worryLevel) {
+    var lcm = monkeys.stream()
+        .mapToInt(Monkey::getDivisor)
+        .reduce(1, (a, b) -> a * b);
+
+    for (int i = 0; i < rounds; i++) {
+      monkeys.forEach(m -> m.inspectItems(monkeys, worryLevel, lcm));
+    }
+
+    return monkeys.stream()
+        .sorted((a, b) -> Long.compare(b.getInspectionCount(), a.getInspectionCount()))
+        .limit(2)
+        .mapToLong(Monkey::getInspectionCount)
+        .reduce(1L, (a, b) -> a * b);
+  }
+
+  private List<Monkey> createMonkeyList(List<String> lines) {
     List<Monkey> monkeys = new ArrayList<>();
     int currentMonkey = -1;
     for (String line : lines) {
@@ -47,15 +61,15 @@ public class MonkeyInTheMiddle {
         currentMonkey = Integer.parseInt(monkeyNumber);
       } else if (line.contains("Starting items:")) {
         Matcher numberMatcher = numberPattern.matcher(line);
-        List<Integer> startingItems = new ArrayList<>();
+        List<Long> startingItems = new ArrayList<>();
         while (numberMatcher.find()) {
-          int number = Integer.parseInt(numberMatcher.group());
+          Long number = Long.parseLong(numberMatcher.group());
           startingItems.add(number);
         }
         monkeys.get(currentMonkey).setItems(startingItems);
       } else if (line.contains("Operation:")) {
         int firstIndex = line.indexOf("old");
-        int secondIndex = line.indexOf("old" , firstIndex + "old".length());
+        int secondIndex = line.indexOf("old", firstIndex + "old".length());
         String value;
         if (secondIndex != -1) {
           value = "old";

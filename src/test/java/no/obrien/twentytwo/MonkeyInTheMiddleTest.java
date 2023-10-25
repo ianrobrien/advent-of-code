@@ -12,4 +12,9 @@ class MonkeyInTheMiddleTest {
   void testPartOne() {
     assertEquals(100345, MonkeyInTheMiddle.partOne(INPUT_FILE_PATH));
   }
+
+  @Test
+  void testPartPartTwo() {
+    assertEquals(28537348205L, MonkeyInTheMiddle.partTwo(INPUT_FILE_PATH));
+  }
 }
