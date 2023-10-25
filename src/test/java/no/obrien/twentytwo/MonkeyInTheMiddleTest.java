@@ -15,6 +15,6 @@ class MonkeyInTheMiddleTest {
 
   @Test
   void testPartPartTwo() {
-    assertEquals(100345, MonkeyInTheMiddle.partTwo(INPUT_FILE_PATH));
+    assertEquals(28537348205L, MonkeyInTheMiddle.partTwo(INPUT_FILE_PATH));
   }
 }

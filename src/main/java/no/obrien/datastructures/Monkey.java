@@ -12,20 +12,17 @@ public class Monkey {
 
   private List<Long> items;
   private Function<Long, Long> operation;
-  private Long divisor;
+  private int divisor;
   private int trueMonkey;
   private int falseMonkey;
   private int itemIndex = 0;
-  private int inspectionCount = 0;
+  private long inspectionCount = 0;
 
-  public void inspectItems(List<Monkey> monkeys, int worryLevel) {
+  public void inspectItems(List<Monkey> monkeys, int worryLevel, int commonMultiplier) {
     for (Long item : items) {
-      item = this.operation.apply(item);
-      if (worryLevel > 1) {
-        item = item / worryLevel;
-      }
-      int monkeyRecipient = item % divisor == 0 ? trueMonkey : falseMonkey;
-      monkeys.get(monkeyRecipient).getItems().add(item);
+      var value = this.operation.apply(item) / worryLevel % commonMultiplier;
+      int monkeyRecipient = value % divisor == 0 ? trueMonkey : falseMonkey;
+      monkeys.get(monkeyRecipient).getItems().add(value);
       inspectionCount++;
     }
     items.clear();

@@ -13,7 +13,7 @@ public class MonkeyInTheMiddle {
 
   private final Pattern numberPattern = Pattern.compile("\\d+"); // Match one or more digits
 
-  public int partOne(String inputFilePath) {
+  public long partOne(String inputFilePath) {
     List<String> lines = FileUtils.parseInputFile(inputFilePath)
         .stream()
         .filter(line -> !line.isEmpty())
@@ -21,11 +21,10 @@ public class MonkeyInTheMiddle {
 
     var monkeys = createMonkeyList(lines);
 
-    int rounds = 20;
-    return playMonkeyInTheMiddle(monkeys, rounds, 3);
+    return playMonkeyInTheMiddle(monkeys, 20, 3);
   }
 
-  public int partTwo(String inputFilePath) {
+  public long partTwo(String inputFilePath) {
     List<String> lines = FileUtils.parseInputFile(inputFilePath)
         .stream()
         .filter(line -> !line.isEmpty())
@@ -33,30 +32,23 @@ public class MonkeyInTheMiddle {
 
     var monkeys = createMonkeyList(lines);
 
-    int rounds = 10000;
-    return playMonkeyInTheMiddle(monkeys, rounds, 1);
+    return playMonkeyInTheMiddle(monkeys, 10_000, 1);
   }
 
-  private static int playMonkeyInTheMiddle(
-      List<Monkey> monkeys,
-      int rounds,
-      int worryLevel) {
+  private static long playMonkeyInTheMiddle(List<Monkey> monkeys, int rounds, int worryLevel) {
+    var lcm = monkeys.stream()
+        .mapToInt(Monkey::getDivisor)
+        .reduce(1, (a, b) -> a * b);
+
     for (int i = 0; i < rounds; i++) {
-      for (Monkey monkey : monkeys) {
-        monkey.inspectItems(monkeys, worryLevel);
-      }
-      if (i % 1000 == 0) {
-        System.out.println("Round " + i);
-      }
+      monkeys.forEach(m -> m.inspectItems(monkeys, worryLevel, lcm));
     }
 
-    List<Monkey> top2Monkeys = monkeys.stream()
-        .sorted((a, b) -> Integer.compare(b.getInspectionCount(), a.getInspectionCount()))
+    return monkeys.stream()
+        .sorted((a, b) -> Long.compare(b.getInspectionCount(), a.getInspectionCount()))
         .limit(2)
-        .toList();
-
-    return top2Monkeys.get(0).getInspectionCount()
-        * top2Monkeys.get(1).getInspectionCount();
+        .mapToLong(Monkey::getInspectionCount)
+        .reduce(1L, (a, b) -> a * b);
   }
 
   private List<Monkey> createMonkeyList(List<String> lines) {
@@ -97,7 +89,7 @@ public class MonkeyInTheMiddle {
         }
       } else if (line.contains("Test:")) {
         String divisor = extractNumber(line);
-        monkeys.get(currentMonkey).setDivisor(Long.parseLong(divisor));
+        monkeys.get(currentMonkey).setDivisor(Integer.parseInt(divisor));
       } else if (line.contains("If true:")) {
         String trueMonkey = extractNumber(line);
         monkeys.get(currentMonkey).setTrueMonkey(Integer.parseInt(trueMonkey));
