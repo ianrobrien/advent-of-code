@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import no.obrien.twentytwo.RucksackReorganization;
@@ -14,6 +16,11 @@ import no.obrien.twentytwo.RucksackReorganization;
 @Slf4j
 public class FileUtils {
 
+  /***
+   * Parse input file into a list of strings
+   * @param inputFilePath path to input file
+   * @return list of strings
+   */
   public List<String> parseInputFile(String inputFilePath) {
     var items = new ArrayList<String>();
     try (InputStream inputStream = RucksackReorganization.class.getClassLoader()
@@ -32,5 +39,27 @@ public class FileUtils {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  /***
+   * Parse input file into a list of strings, grouped by the number of groups
+   * @param inputFilePath path to input file
+   * @param groups number of groups
+   * @return list of strings
+   */
+  public List<List<String>> parseInputFile(String inputFilePath, int groups) {
+    if (groups < 1) {
+      throw new IllegalArgumentException("Groups must be greater than 0");
+    }
+    var lines = parseInputFile(inputFilePath);
+    return IntStream.range(0, lines.size())
+        .boxed()
+        .collect(Collectors.groupingBy(i -> i / groups))
+        .values()
+        .stream()
+        .map(indices -> indices.stream()
+            .map(lines::get)
+            .collect(Collectors.toList()))
+        .toList();
   }
 }
