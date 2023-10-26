@@ -11,22 +11,16 @@ import no.obrien.utils.FileUtils;
 public class HillClimbingAlgorithm {
 
   private static final List<Tuple<Integer>> MOVES = List.of(
-      new Tuple<>(1, 0),
-      new Tuple<>(-1, 0),
-      new Tuple<>(0, 1),
-      new Tuple<>(0, -1));
+      new Tuple<>(1, 0),    // move right
+      new Tuple<>(-1, 0),   // move left
+      new Tuple<>(0, 1),    // move up
+      new Tuple<>(0, -1));  // move down
 
   public int partOne(String inputFilePath) {
     var map = buildMap(inputFilePath);
 
-    var start = map.keySet().stream()
-        .filter(k -> map.get(k) == 'S')
-        .findFirst()
-        .orElseThrow(() -> new RuntimeException("No start found"));
-    var end = map.keySet().stream()
-        .filter(k -> map.get(k) == 'E')
-        .findFirst()
-        .orElseThrow(() -> new RuntimeException("No end found"));
+    var start = getStart(map);
+    var end = getEnd(map);
 
     map.put(start, (byte) 'a');
     map.put(end, (byte) 'z');
@@ -37,19 +31,27 @@ public class HillClimbingAlgorithm {
   public int partTwo(String inputFilePath) {
     var map = buildMap(inputFilePath);
 
-    var start = map.keySet().stream()
-        .filter(k -> map.get(k) == 'S')
-        .findFirst()
-        .orElseThrow(() -> new RuntimeException("No start found"));
-    var end = map.keySet().stream()
-        .filter(k -> map.get(k) == 'E')
-        .findFirst()
-        .orElseThrow(() -> new RuntimeException("No end found"));
+    var start = getStart(map);
+    var end = getEnd(map);
 
     map.put(start, (byte) 'a');
     map.put(end, (byte) 'z');
 
     return shortestPath(map, end, dh -> dh >= -1, p -> map.get(p) == 'a');
+  }
+
+  private Tuple<Integer> getStart(Map<Tuple<Integer>, Byte> map) {
+    return map.keySet().stream()
+        .filter(k -> map.get(k) == 'S')
+        .findFirst()
+        .orElseThrow(() -> new RuntimeException("No start found"));
+  }
+
+  private Tuple<Integer> getEnd(Map<Tuple<Integer>, Byte> map) {
+    return map.keySet().stream()
+        .filter(k -> map.get(k) == 'E')
+        .findFirst()
+        .orElseThrow(() -> new RuntimeException("No end found"));
   }
 
   record Visit(Tuple<Integer> xy, int distance) {
@@ -77,7 +79,8 @@ public class HillClimbingAlgorithm {
       if (!visited.containsKey(c.xy)
           || visited.get(c.xy) > c.distance) {
         visited.put(c.xy, c.distance);
-        MOVES.stream().map(c::move)
+        MOVES.stream()
+            .map(c::move)
             .filter(n -> map.containsKey(n.xy))
             .filter(n -> isCanClimb.apply((byte) (map.get(n.xy) - map.get(c.xy))))
             .forEach(toVisit::add);
@@ -104,6 +107,7 @@ public class HillClimbingAlgorithm {
         map.put(new Tuple<>(x, y), (byte) lines.get(y).charAt(x));
       }
     }
+
     return map;
   }
 }
