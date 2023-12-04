@@ -17,7 +17,6 @@ class TrebuchetTest {
         Trebuchet.partOne(INPUT_FILE_PATH));
   }
 
-
   @Test
   void testPartTwo() {
     assertEquals(
