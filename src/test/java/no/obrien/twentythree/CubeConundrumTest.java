@@ -15,4 +15,11 @@ class CubeConundrumTest {
         2285,
         CubeConundrum.partOne(FileUtils.parseInputFile(INPUT_FILE_PATH)));
   }
+
+  @Test
+  void testPartTwo() {
+    assertEquals(
+        77021,
+        CubeConundrum.partTwo(FileUtils.parseInputFile(INPUT_FILE_PATH)));
+  }
 }
