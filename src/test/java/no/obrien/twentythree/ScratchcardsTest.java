@@ -15,4 +15,11 @@ public class ScratchcardsTest {
         26218,
         Scratchcards.partOne(FileUtils.parseInputFile(INPUT_FILE_PATH)));
   }
+
+  @Test
+  void testPartTwo() {
+    assertEquals(
+        26218,
+        Scratchcards.partTwo(FileUtils.parseInputFile(INPUT_FILE_PATH)));
+  }
 }
