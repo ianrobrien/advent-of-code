@@ -67,14 +67,14 @@ public class Grid<T> {
   }
 
   public T peekUpRight(int x, int y) {
-    return grid.getOrDefault(new Tuple<>(x + 1, y - 1), null);
+    return grid.getOrDefault(new Tuple<>(x + 1, y + 1), null);
   }
 
   public T peekDownLeft(int x, int y) {
-    return grid.getOrDefault(new Tuple<>(x - 1, y + 1), null);
+    return grid.getOrDefault(new Tuple<>(x - 1, y - 1), null);
   }
 
   public T peekDownRight(int x, int y) {
-    return grid.getOrDefault(new Tuple<>(x + 1, y + 1), null);
+    return grid.getOrDefault(new Tuple<>(x + 1, y - 1), null);
   }
 }
