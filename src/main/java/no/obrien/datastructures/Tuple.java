@@ -1,12 +1,21 @@
 package no.obrien.datastructures;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.Objects;
+
 @Data
-@AllArgsConstructor
 public class Tuple<T> {
 
-  T x;
-  T y;
+  private T x;
+  private T y;
+
+  public Tuple(T x, T y) {
+    this.x = Objects.requireNonNull(x);
+    this.y = Objects.requireNonNull(y);
+  }
+
+  // Required for Lombok
+  private Tuple() {
+  }
 }
