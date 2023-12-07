@@ -18,12 +18,12 @@ class GearRatiosTest {
         GearRatios.partOne(FileUtils.parseInputFile(INPUT_FILE_PATH)));
   }
 
-//  @Test
-//  void testPartTwo() {
-//    assertEquals(
-//        0,
-//        GearRatios.partTwo(FileUtils.parseInputFile(INPUT_FILE_PATH)));
-//  }
+  @Test
+  void testPartTwo() {
+    assertEquals(
+        0,
+        GearRatios.partTwo(FileUtils.parseInputFile(INPUT_FILE_PATH)));
+  }
 
   @Test
   void testLookLeft() {

@@ -3,6 +3,7 @@ package no.obrien.twentythree;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.experimental.UtilityClass;
+import no.obrien.datastructures.Grid;
 
 @UtilityClass
 public class GearRatios {
@@ -68,7 +69,26 @@ public class GearRatios {
   }
 
   public int partTwo(List<String> lines) {
-    int result = 0;
-    return result;
+    List<Integer> result = new ArrayList<>();
+    Grid<Character> grid = new Grid<>();
+    int x = 0;
+    int y = 0;
+    for (String line : lines) {
+      for (char c : line.toCharArray()) {
+        grid.add(x, y, c);
+        x++;
+      }
+      y++;
+    }
+    // go row by row
+    x = 0;
+    y = 0;
+    for (int rowIndex = 1; rowIndex <= grid.getMaxY(); rowIndex++) {
+      for (int columnIndex = 0; columnIndex < grid.getMaxX(); columnIndex++) {
+        System.out.println(grid.get(columnIndex, rowIndex - 1));
+      }
+      y++;
+    }
+    return result.stream().mapToInt(Integer::intValue).sum();
   }
 }

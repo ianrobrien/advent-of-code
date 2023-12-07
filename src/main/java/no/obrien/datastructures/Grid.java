@@ -1,10 +1,34 @@
 package no.obrien.datastructures;
 
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Grid<T> {
 
-  private Map<Tuple<Integer>, T> grid;
+  private Map<Tuple<Integer>, T> grid = new LinkedHashMap<>();
+
+  public int getMaxX() {
+    return this.getRow(0).stream().mapToInt(Point::getX).max().orElse(0);
+  }
+
+  public int getMaxY() {
+    return this.getColumn(0).stream().mapToInt(Point::getY).max().orElse(0);
+  }
+
+  public List<Point<T>> getRow(int rowIndex) {
+    return grid.entrySet().stream()
+        .filter(p -> p.getKey().getY() == rowIndex)
+        .map(p -> new Point<>(p.getKey().getX(), p.getKey().getY(), p.getValue()))
+        .toList();
+  }
+
+  public List<Point<T>> getColumn(int columnIndex) {
+    return grid.entrySet().stream()
+        .filter(p -> p.getKey().getX() == columnIndex)
+        .map(p -> new Point<>(p.getKey().getX(), p.getKey().getY(), p.getValue()))
+        .toList();
+  }
 
   public void add(int x, int y, T value) {
     grid.put(new Tuple<>(x, y), value);
