@@ -19,7 +19,7 @@ public class ScratchcardsTest {
   @Test
   void testPartTwo() {
     assertEquals(
-        26218,
+        9997537,
         Scratchcards.partTwo(FileUtils.parseInputFile(INPUT_FILE_PATH)));
   }
 }
