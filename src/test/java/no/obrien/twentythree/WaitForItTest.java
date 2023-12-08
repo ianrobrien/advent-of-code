@@ -19,7 +19,7 @@ class WaitForItTest {
   @Test
   void testPartTwo() {
     assertEquals(
-        77021,
+        23632299L,
         WaitForIt.partTwo(FileUtils.parseInputFile(INPUT_FILE_PATH)));
   }
 }
