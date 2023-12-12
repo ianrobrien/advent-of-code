@@ -1,11 +1,10 @@
 package no.obrien.twentythree;
 
-import no.obrien.utils.FileUtils;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
+import no.obrien.utils.FileUtils;
+import org.junit.jupiter.api.Test;
 
 class GearRatiosTest {
 
@@ -19,10 +18,42 @@ class GearRatiosTest {
   }
 
   @Test
+  void testPartOneSample() {
+    assertEquals(4361,
+        GearRatios.partOne(List.of(
+            "467..114..",
+            "...*......",
+            "..35..633.",
+            "......#...",
+            "617*......",
+            ".....+.58.",
+            "..592.....",
+            "......755.",
+            "...$.*....",
+            ".664.598..")));
+  }
+
+  @Test
   void testPartTwo() {
     assertEquals(
-        0,
+        84159075,
         GearRatios.partTwo(FileUtils.parseInputFile(INPUT_FILE_PATH)));
+  }
+
+  @Test
+  void testPartTwoSample() {
+    assertEquals(467835,
+        GearRatios.partTwo(List.of(
+            "467..114..",
+            "...*......",
+            "..35..633.",
+            "......#...",
+            "617*......",
+            ".....+.58.",
+            "..592.....",
+            "......755.",
+            "...$.*....",
+            ".664.598..")));
   }
 
   @Test
@@ -166,5 +197,85 @@ class GearRatiosTest {
         GearRatios.partOne(List.of(
             "....",
             "123.")));
+  }
+
+  @Test
+  void partTwoLookLeftAndRight() {
+    assertEquals(
+        56088,
+        GearRatios.partTwo(List.of(
+            "123#456")));
+    assertEquals(
+        56088,
+        GearRatios.partTwo(List.of(
+            ".123#456")));
+    assertEquals(
+        56088,
+        GearRatios.partTwo(List.of(
+            "123#456.")));
+  }
+
+  @Test
+  void partTwoLookUp() {
+    assertEquals(
+        56088,
+        GearRatios.partTwo(List.of(
+            "123....",
+            "#456...")));
+    assertEquals(
+        56088,
+        GearRatios.partTwo(List.of(
+            "123....",
+            ".#456..")));
+    assertEquals(
+        56088,
+        GearRatios.partTwo(List.of(
+            "123....",
+            "..#456.")));
+    assertEquals(
+        56088,
+        GearRatios.partTwo(List.of(
+            "123....",
+            "...#456")));
+    assertEquals(
+        56088,
+        GearRatios.partTwo(List.of(
+            ".123....",
+            "...#456.")));
+    assertEquals(
+        56088,
+        GearRatios.partTwo(List.of(
+            "123....",
+            "456#...")));
+    assertEquals(
+        56088,
+        GearRatios.partTwo(List.of(
+            ".123...",
+            "456#...")));
+    assertEquals(
+        56088,
+        GearRatios.partTwo(List.of(
+            "..123..",
+            "456#...")));
+    assertEquals(
+        56088,
+        GearRatios.partTwo(List.of(
+            "...123.",
+            "456#...")));
+    assertEquals(
+        56088,
+        GearRatios.partTwo(List.of(
+            "....123",
+            "456#...")));
+  }
+
+
+  @Test
+  void partTwoLookDown() {
+    assertEquals(
+        56088,
+        GearRatios.partTwo(List.of(
+            "123#....",
+            "....456.")));
   }
 }
