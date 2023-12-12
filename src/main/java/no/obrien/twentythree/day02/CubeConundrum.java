@@ -1,4 +1,4 @@
-package no.obrien.twentythree;
+package no.obrien.twentythree.day02;
 
 import java.util.List;
 import java.util.regex.Matcher;

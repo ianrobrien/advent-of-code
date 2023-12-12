@@ -1,4 +1,4 @@
-package no.obrien.twentythree;
+package no.obrien.twentythree.day08;
 
 import java.math.BigInteger;
 import java.util.ArrayList;

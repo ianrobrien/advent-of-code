@@ -1,4 +1,4 @@
-package no.obrien.twentythree;
+package no.obrien.twentythree.day01;
 
 import java.util.List;
 import java.util.Map;

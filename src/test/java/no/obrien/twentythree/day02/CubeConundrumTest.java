@@ -1,7 +1,8 @@
-package no.obrien.twentythree;
+package no.obrien.twentythree.day02;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import no.obrien.twentythree.day02.CubeConundrum;
 import no.obrien.utils.FileUtils;
 import org.junit.jupiter.api.Test;
 

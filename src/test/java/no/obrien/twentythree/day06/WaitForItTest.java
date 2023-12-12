@@ -1,7 +1,8 @@
-package no.obrien.twentythree;
+package no.obrien.twentythree.day06;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import no.obrien.twentythree.day06.WaitForIt;
 import no.obrien.utils.FileUtils;
 import org.junit.jupiter.api.Test;
 

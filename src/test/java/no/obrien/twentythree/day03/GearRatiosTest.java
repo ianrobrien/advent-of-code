@@ -1,8 +1,9 @@
-package no.obrien.twentythree;
+package no.obrien.twentythree.day03;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
+import no.obrien.twentythree.day03.GearRatios;
 import no.obrien.utils.FileUtils;
 import org.junit.jupiter.api.Test;
 

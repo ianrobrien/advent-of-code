@@ -1,7 +1,8 @@
-package no.obrien.twentythree;
+package no.obrien.twentythree.day04;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import no.obrien.twentythree.day04.Scratchcards;
 import no.obrien.utils.FileUtils;
 import org.junit.jupiter.api.Test;
 
