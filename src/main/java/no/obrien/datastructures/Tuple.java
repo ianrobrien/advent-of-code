@@ -1,8 +1,7 @@
 package no.obrien.datastructures;
 
-import lombok.Data;
-
 import java.util.Objects;
+import lombok.Data;
 
 @Data
 public class Tuple<T> {

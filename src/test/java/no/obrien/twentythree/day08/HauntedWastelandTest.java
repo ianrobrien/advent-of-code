@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-import no.obrien.twentythree.day08.HauntedWasteland;
 import no.obrien.utils.FileUtils;
 import org.junit.jupiter.api.Test;
 

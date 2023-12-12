@@ -37,6 +37,7 @@ public class MathUtils {
 
   /**
    * Finds the Least Common Multiple (LCM) of two numbers.
+   *
    * @param a the first number
    * @param b the second number
    * @return the LCM of the numbers
