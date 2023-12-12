@@ -7,12 +7,12 @@ import java.util.Objects;
 @Data
 public class Tuple<T> {
 
-  private T x;
-  private T y;
+  private T first;
+  private T second;
 
-  public Tuple(T x, T y) {
-    this.x = Objects.requireNonNull(x);
-    this.y = Objects.requireNonNull(y);
+  public Tuple(T first, T second) {
+    this.first = Objects.requireNonNull(first);
+    this.second = Objects.requireNonNull(second);
   }
 
   // Required for Lombok

@@ -38,8 +38,8 @@ public class RockPaperScissors {
         .stream()
         .map(character ->
             calculateRoundScorePartOne(
-                character.getX().toString(),
-                character.getY().toString()))
+                character.getFirst().toString(),
+                character.getSecond().toString()))
         .mapToInt(Integer::intValue)
         .sum();
   }
@@ -49,8 +49,8 @@ public class RockPaperScissors {
         .stream()
         .map(character ->
             calculateRoundScorePartTwo(
-                character.getX().toString(),
-                character.getY().toString()))
+                character.getFirst().toString(),
+                character.getSecond().toString()))
         .mapToInt(Integer::intValue)
         .sum();
   }

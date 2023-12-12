@@ -18,11 +18,11 @@ public class RopeBridgeKnot {
   }
 
   public int getX() {
-    return position.getX();
+    return position.getFirst();
   }
 
   public int getY() {
-    return position.getY();
+    return position.getSecond();
   }
 
   boolean isTouching(RopeBridgeKnot knot) {
