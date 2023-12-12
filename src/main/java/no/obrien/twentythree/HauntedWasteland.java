@@ -1,5 +1,6 @@
 package no.obrien.twentythree;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 import lombok.experimental.UtilityClass;
 import no.obrien.datastructures.Tuple;
+import no.obrien.utils.MathUtils;
 
 @UtilityClass
 public class HauntedWasteland {
@@ -42,8 +44,7 @@ public class HauntedWasteland {
     return result;
   }
 
-  public int partTwo(List<String> lines) {
-    int result = 0;
+  public BigInteger partTwo(List<String> lines) {
     var steps = lines.get(0);
 
     var nodeNetwork = buildNodeNetwork(lines);
@@ -51,39 +52,26 @@ public class HauntedWasteland {
         .filter(s -> s.endsWith("A"))
         .toList();
 
-    var currentNodes = new ArrayList<>(startNodes);
-
-    while (currentNodes.stream()
-        .filter(s -> s.endsWith("Z"))
-        .toList()
-        .size() != currentNodes.size()) {
-      for (Character c : steps.toCharArray()) {
-        switch (c) {
-          case 'L' -> {
-            for (var currentNode : currentNodes) {
-              currentNodes.add(nodeNetwork.get(currentNode).getFirst());
-              currentNodes.remove(currentNode);
-            }
-            result++;
+    var stepsPerNode = new ArrayList<Integer>();
+    for (String startNode : startNodes) {
+      var currentNode = startNode;
+      int stepsCount = 0;
+      while (!currentNode.endsWith("Z")) {
+        for (Character c : steps.toCharArray()) {
+          stepsCount++;
+          switch (c) {
+            case 'L' -> currentNode = nodeNetwork.get(currentNode).getFirst();
+            case 'R' -> currentNode = nodeNetwork.get(currentNode).getSecond();
           }
-          case 'R' -> {
-            for (var currentNode : currentNodes) {
-              currentNodes.add(nodeNetwork.get(currentNode).getSecond());
-              currentNodes.remove(currentNode);
-            }
-            result++;
+          if (currentNode.endsWith("Z")) {
+            stepsPerNode.add(stepsCount);
+            break;
           }
-        }
-        if (currentNodes.stream()
-            .filter(s -> s.endsWith("Z"))
-            .toList()
-            .size() == currentNodes.size()) {
-          break;
         }
       }
     }
 
-    return result;
+    return MathUtils.findLCM(stepsPerNode);
   }
 
   private LinkedHashMap<String, Tuple<String>> buildNodeNetwork(
