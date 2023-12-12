@@ -58,8 +58,8 @@ public class HillClimbingAlgorithm {
 
     Visit move(Tuple<Integer> v) {
       return new Visit(new Tuple<>(
-          xy.getX() + v.getX(),
-          xy.getY() + v.getY()),
+          xy.getFirst() + v.getFirst(),
+          xy.getSecond() + v.getSecond()),
           distance + 1);
     }
   }

@@ -21,7 +21,7 @@ public class GearRatios {
           findTouchingDigits(point).stream()
               .filter(
                   c -> isValid(lines, c)
-                      && Character.isDigit(lines.get(c.getY()).charAt(c.getX())))
+                      && Character.isDigit(lines.get(c.getSecond()).charAt(c.getFirst())))
               .map(c -> findFirstChar(lines, c)).forEach(points::add);
         }
       }
@@ -40,7 +40,7 @@ public class GearRatios {
           Set<Tuple<Integer>> candidates = findTouchingDigits(point).stream()
               .filter(
                   c -> isValid(lines, c)
-                      && Character.isDigit(lines.get(c.getY()).charAt(c.getX())))
+                      && Character.isDigit(lines.get(c.getSecond()).charAt(c.getFirst())))
               .map(c -> findFirstChar(lines, c))
               .collect(Collectors.toSet());
           if (candidates.size() == 2) {
@@ -61,14 +61,14 @@ public class GearRatios {
 
     var result = new ArrayList<Tuple<Integer>>();
     for (int i = 0; i < dx.length; i++) {
-      result.add(new Tuple<>(symbol.getX() + dx[i], symbol.getY() + dy[i]));
+      result.add(new Tuple<>(symbol.getFirst() + dx[i], symbol.getSecond() + dy[i]));
     }
     return result.stream().toList();
   }
 
   private boolean isValid(List<String> lines, Tuple<Integer> tuple) {
-    return tuple.getY() >= 0 && tuple.getY() < lines.size()
-        && tuple.getX() >= 0 && tuple.getX() < lines.get(tuple.getY()).length();
+    return tuple.getSecond() >= 0 && tuple.getSecond() < lines.size()
+        && tuple.getFirst() >= 0 && tuple.getFirst() < lines.get(tuple.getSecond()).length();
   }
 
   private boolean isSymbol(char c) {
@@ -76,20 +76,20 @@ public class GearRatios {
   }
 
   private Tuple<Integer> findFirstChar(List<String> lines, Tuple<Integer> point) {
-    var line = lines.get(point.getY());
-    var x = point.getX();
+    var line = lines.get(point.getSecond());
+    var x = point.getFirst();
     while (x > 0 && Character.isDigit(line.charAt(x - 1))) {
       --x;
     }
-    return new Tuple<>(x, point.getY());
+    return new Tuple<>(x, point.getSecond());
   }
 
   private static int readNumberFrom(List<String> lines, Tuple<Integer> startPoint) {
-    var line = lines.get(startPoint.getY());
-    var x = startPoint.getX();
+    var line = lines.get(startPoint.getSecond());
+    var x = startPoint.getFirst();
     while (x < line.length() && Character.isDigit(line.charAt(x))) {
       ++x;
     }
-    return Integer.parseInt(line.substring(startPoint.getX(), x));
+    return Integer.parseInt(line.substring(startPoint.getFirst(), x));
   }
 }
