@@ -26,4 +26,22 @@ public class MirageMaintenanceTest {
         114,
         MirageMaintenance.partOne(input.lines().toList()));
   }
+
+  @Test
+  void testPartTwo() {
+    assertEquals(
+        900,
+        MirageMaintenance.partTwo(FileUtils.parseInputFile(INPUT_FILE_PATH)));
+  }
+
+  @Test
+  void testPartTwoSample() {
+    var input = """
+        0 3 6 9 12 15
+        1 3 6 10 15 21
+        10 13 16 21 30 45""";
+    assertEquals(
+        2,
+        MirageMaintenance.partTwo(input.lines().toList()));
+  }
 }
