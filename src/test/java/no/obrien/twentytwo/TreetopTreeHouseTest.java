@@ -2,6 +2,7 @@ package no.obrien.twentytwo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import no.obrien.twentytwo.day08.TreetopTreeHouse;
 import org.junit.jupiter.api.Test;
 
 class TreetopTreeHouseTest {

@@ -1,4 +1,4 @@
-package no.obrien.twentytwo;
+package no.obrien.twentytwo.day05;
 
 import java.util.ArrayList;
 import java.util.List;

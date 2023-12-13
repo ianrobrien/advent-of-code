@@ -1,4 +1,4 @@
-package no.obrien.twentytwo;
+package no.obrien.twentytwo.day03;
 
 import java.util.HashMap;
 import java.util.Map;

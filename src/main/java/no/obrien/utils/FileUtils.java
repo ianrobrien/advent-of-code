@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
-import no.obrien.twentytwo.RucksackReorganization;
+import no.obrien.twentytwo.day03.RucksackReorganization;
 
 @UtilityClass
 @Slf4j

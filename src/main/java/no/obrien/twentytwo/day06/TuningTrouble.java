@@ -1,4 +1,4 @@
-package no.obrien.twentytwo;
+package no.obrien.twentytwo.day06;
 
 import lombok.experimental.UtilityClass;
 import no.obrien.utils.FileUtils;

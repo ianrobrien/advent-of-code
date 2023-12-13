@@ -1,4 +1,4 @@
-package no.obrien.twentytwo;
+package no.obrien.twentytwo.day09;
 
 import java.util.List;
 import lombok.experimental.UtilityClass;
