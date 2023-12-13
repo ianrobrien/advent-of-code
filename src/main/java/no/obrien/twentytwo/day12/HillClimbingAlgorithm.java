@@ -54,16 +54,6 @@ public class HillClimbingAlgorithm {
         .orElseThrow(() -> new RuntimeException("No end found"));
   }
 
-  record Visit(Tuple<Integer> xy, int distance) {
-
-    Visit move(Tuple<Integer> v) {
-      return new Visit(new Tuple<>(
-          xy.getFirst() + v.getFirst(),
-          xy.getSecond() + v.getSecond()),
-          distance + 1);
-    }
-  }
-
   private int shortestPath(
       Map<Tuple<Integer>, Byte> map,
       Tuple<Integer> start,
@@ -109,5 +99,15 @@ public class HillClimbingAlgorithm {
     }
 
     return map;
+  }
+
+  record Visit(Tuple<Integer> xy, int distance) {
+
+    Visit move(Tuple<Integer> v) {
+      return new Visit(new Tuple<>(
+          xy.getFirst() + v.getFirst(),
+          xy.getSecond() + v.getSecond()),
+          distance + 1);
+    }
   }
 }

@@ -21,6 +21,20 @@ public class RopeBridge {
     hitMap.add(new RopeBridgeKnot(getTail().getX(), getTail().getY()));
   }
 
+  private static RopeBridgeKnot moveTail(RopeBridgeKnot head, RopeBridgeKnot tail) {
+    if (tail.isTouching(head)) {
+      return tail;
+    } else if (tail.getY() == head.getY()) {
+      return tail.moveOneStep(tail.getX() < head.getX() ? 1 : -1, 0);
+    } else if (tail.getX() == head.getX()) {
+      return tail.moveOneStep(0, tail.getY() < head.getY() ? 1 : -1);
+    } else if (tail.getY() < head.getY()) {
+      return tail.moveOneStep(tail.getX() < head.getX() ? 1 : -1, 1);
+    } else {
+      return tail.moveOneStep(tail.getX() < head.getX() ? 1 : -1, -1);
+    }
+  }
+
   public RopeBridgeKnot getTail() {
     return ropeBridge.get(ropeBridge.size() - 1);
   }
@@ -48,20 +62,6 @@ public class RopeBridge {
         ropeBridge.set(j, moveTail(ropeBridge.get(j - 1), ropeBridge.get(j)));
       }
       hitMap.add(new RopeBridgeKnot(this.getTail().getX(), this.getTail().getY()));
-    }
-  }
-
-  private static RopeBridgeKnot moveTail(RopeBridgeKnot head, RopeBridgeKnot tail) {
-    if (tail.isTouching(head)) {
-      return tail;
-    } else if (tail.getY() == head.getY()) {
-      return tail.moveOneStep(tail.getX() < head.getX() ? 1 : -1, 0);
-    } else if (tail.getX() == head.getX()) {
-      return tail.moveOneStep(0, tail.getY() < head.getY() ? 1 : -1);
-    } else if (tail.getY() < head.getY()) {
-      return tail.moveOneStep(tail.getX() < head.getX() ? 1 : -1, 1);
-    } else {
-      return tail.moveOneStep(tail.getX() < head.getX() ? 1 : -1, -1);
     }
   }
 }

@@ -3,7 +3,6 @@ package no.obrien.twentytwo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
-
 import no.obrien.twentytwo.day09.RopeBridge;
 import no.obrien.utils.FileUtils;
 import org.junit.jupiter.api.Test;

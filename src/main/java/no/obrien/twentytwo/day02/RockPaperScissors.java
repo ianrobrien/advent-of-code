@@ -13,26 +13,6 @@ import no.obrien.utils.FileUtils;
 @Slf4j
 public class RockPaperScissors {
 
-  @RequiredArgsConstructor
-  @Getter
-  private enum OutcomeScore {
-    WIN(6),
-    DRAW(3),
-    LOSS(0);
-
-    private final int value;
-  }
-
-  @RequiredArgsConstructor
-  @Getter
-  private enum ChoiceScore {
-    ROCK(1),
-    PAPER(2),
-    SCISSORS(3);
-
-    private final int value;
-  }
-
   public int partOne(String filePath) {
     return parseInputFile(filePath)
         .stream()
@@ -135,5 +115,25 @@ public class RockPaperScissors {
           return new Tuple<>(tokens[0].charAt(0), tokens[1].charAt(0));
         })
         .collect(Collectors.toList());
+  }
+
+  @RequiredArgsConstructor
+  @Getter
+  private enum OutcomeScore {
+    WIN(6),
+    DRAW(3),
+    LOSS(0);
+
+    private final int value;
+  }
+
+  @RequiredArgsConstructor
+  @Getter
+  private enum ChoiceScore {
+    ROCK(1),
+    PAPER(2),
+    SCISSORS(3);
+
+    private final int value;
   }
 }
