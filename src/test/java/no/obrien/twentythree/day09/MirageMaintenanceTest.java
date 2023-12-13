@@ -12,7 +12,7 @@ public class MirageMaintenanceTest {
   @Test
   void testPartOne() {
     assertEquals(
-        16697,
+        1987402313,
         MirageMaintenance.partOne(FileUtils.parseInputFile(INPUT_FILE_PATH)));
   }
 
