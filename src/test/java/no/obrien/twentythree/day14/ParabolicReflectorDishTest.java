@@ -35,5 +35,24 @@ class ParabolicReflectorDishTest {
 
   @Test
   void testPartTwo() {
+    assertEquals(96317,
+        ParabolicReflectorDish.partTwo(FileUtils.parseInputFile(INPUT_FILE)));
+  }
+
+  @Test
+  void testPartTwoSample() {
+    var input = """
+        O....#....
+        O.OO#....#
+        .....##...
+        OO.#O....O
+        .O.....O#.
+        O.#..O.#.#
+        ..O..#O..O
+        .......O..
+        #....###..
+        #OO..#....""";
+    assertEquals(64,
+        ParabolicReflectorDish.partTwo(input.lines().collect(Collectors.toList())));
   }
 }

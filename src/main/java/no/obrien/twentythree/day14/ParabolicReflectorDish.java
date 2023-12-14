@@ -1,7 +1,9 @@
 package no.obrien.twentythree.day14;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.experimental.UtilityClass;
 
@@ -9,66 +11,92 @@ import lombok.experimental.UtilityClass;
 public class ParabolicReflectorDish {
 
   private static final char ROCK = 'O';
-  private static final char CUBE = '#';
   private static final char EMPTY = '.';
 
   public long partOne(List<String> lines) {
-    var rotatedGrid = rotateGrid(lines);
-    var tiltedGrid = tiltGrid(rotatedGrid);
-    return calculateLoad(tiltedGrid);
+    return calculateLoad(tiltNorth(createGrid(lines)));
   }
 
-  public int partTwo(List<String> lines) {
-    var result = 0;
-    return result;
+  public long partTwo(List<String> lines) {
+    Map<String, Long> index = new HashMap<>();
+    var grid = createGrid(lines);
+    for (long i = 0; i < 1000000000; i++) {
+      grid = runCycle(grid);
+      String str = calculateKey(grid);
+      if (index.containsKey(str)) {
+        long delta = i - index.get(str);
+        i += delta * ((1000000000 - i) / delta);
+      }
+      index.put(str, i);
+    }
+    return calculateLoad(grid);
   }
 
-  private List<String> rotateGrid(List<String> lines) {
-    var result = new ArrayList<StringBuilder>();
-    for (int rowIndex = 0; rowIndex < lines.size(); rowIndex++) {
-      for (int columnIndex = 0; columnIndex < lines.get(rowIndex).length(); columnIndex++) {
-        var line = lines.get(rowIndex);
-        var character = line.charAt(columnIndex);
-        if (result.size() <= columnIndex) {
-          result.add(columnIndex, new StringBuilder());
-        }
-        result.get(columnIndex).append(character);
+  private char[][] createGrid(List<String> lines) {
+    char[][] grid = new char[lines.get(0).length()][lines.size()];
+    for (int y = 0; y < lines.size(); y++) {
+      String line = lines.get(y);
+      for (int x = 0; x < line.length(); x++) {
+        grid[x][y] = line.charAt(x);
       }
     }
-    return result.stream().map(StringBuilder::toString).collect(Collectors.toList());
+    return grid;
   }
 
-  private List<String> tiltGrid(List<String> lines) {
-    var result = new ArrayList<String>();
-    for (String line : lines) {
-      char[] tokens = line.toCharArray();
-      boolean tilted = false;
-      while (!tilted) {
-        tilted = true;
-        for (int i = 0; i < tokens.length - 1; i++) {
-          var next = tokens[i + 1];
-          var current = tokens[i];
-          if (current == EMPTY && next == ROCK) {
-            tokens[i + 1] = EMPTY;
-            tokens[i] = ROCK;
-            tilted = false;
+  private static char[][] tiltNorth(char[][] grid) {
+    int width = grid.length;
+    int height = grid[0].length;
+    for (int x = 0; x < width; x++) {
+      boolean move = true;
+      while (move) {
+        move = false;
+        for (int y = 1; y < height; y++) {
+          if (grid[x][y] == ROCK && grid[x][y - 1] == EMPTY) {
+            grid[x][y] = EMPTY;
+            grid[x][y - 1] = ROCK;
+            move = true;
           }
         }
       }
-      result.add(new String(tokens));
     }
-    return result;
+    return grid;
   }
 
-  private long calculateLoad(List<String> lines) {
+  private static long calculateLoad(char[][] grid) {
+    int height = grid[0].length;
     long result = 0;
-    for (int i = 0; i < lines.size(); i++) {
-      for (int j = 0; j < lines.get(i).length(); j++) {
-        if (lines.get(i).charAt(j) == ROCK) {
-          result += (lines.size() - j);
+    for (char[] chars : grid) {
+      for (int y = 0; y < height; y++) {
+        if (chars[y] == ROCK) {
+          result += height - y;
         }
       }
     }
     return result;
+  }
+
+  private char[][] rotateGrid(char[][] grid) {
+    int width = grid.length;
+    int height = grid[0].length;
+    char[][] result = new char[height][width];
+    for (int x = 0; x < width; x++) {
+      for (int y = 0; y < height; y++) {
+        result[x][y] = grid[y][height - x - 1];
+      }
+    }
+    return result;
+  }
+
+  private char[][] runCycle(char[][] grid) {
+    for (int i = 0; i < 4; i++) {
+      grid = rotateGrid(tiltNorth(grid));
+    }
+    return grid;
+  }
+
+  private String calculateKey(char[][] map) {
+    return Arrays.stream(map)
+        .map(String::new)
+        .collect(Collectors.joining());
   }
 }
