@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
-import no.obrien.twentytwo.day03.RucksackReorganization;
 
 @UtilityClass
 @Slf4j
@@ -16,7 +15,7 @@ public class FileUtils {
 
   public List<String> parseInputFile(String inputFilePath) {
     var items = new ArrayList<String>();
-    try (InputStream inputStream = RucksackReorganization.class.getClassLoader()
+    try (InputStream inputStream = FileUtils.class.getClassLoader()
         .getResourceAsStream(inputFilePath)) {
       if (inputStream != null) {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
@@ -25,12 +24,14 @@ public class FileUtils {
             items.add(line);
           }
         } catch (IOException e) {
-          log.error(e.getMessage());
+          log.error("Error reading file: {}", e.getMessage());
         }
+      } else {
+        log.error("File not found: {}", inputFilePath);
       }
-      return items;
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      log.error("Error opening file: {}", e.getMessage());
     }
+    return items;
   }
 }
