@@ -148,12 +148,12 @@ class ${assignment_name}Test {
 \"\"\";
     assertEquals(0, ${assignment_name}.partTwo(input.lines().toList()));
   }
-}" > "${test_dir}/Test${assignment_name}.java"
+}" > "${test_dir}/${assignment_name}Test.java"
 
 # Create empty resource file
 touch "${resource_dir}/${assignment_name}.txt"
 
 echo "Directories and Java files created:"
 echo "Main directory: $main_dir/${assignment_name}.java"
-echo "Test directory: $test_dir/Test${assignment_name}.java"
+echo "Test directory: $test_dir/${assignment_name}Test.java"
 echo "Resource directory: $resource_dir/${assignment_name}.txt"
