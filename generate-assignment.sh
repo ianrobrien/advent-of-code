@@ -119,7 +119,7 @@ import org.junit.jupiter.api.Test;
 
 class ${assignment_name}Test {
 
-  private static final String INPUT_FILE_PATH = \"year${year}/${assignment_name}.txt\";
+  private static final String INPUT_FILE_PATH = \"year${year}/day${day}/${assignment_name}.txt\";
 
   @Test
   void testPartOne() {
