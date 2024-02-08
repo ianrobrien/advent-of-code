@@ -24,7 +24,7 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
   build:
-    needs: [ vale ]
+    needs: [vale]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
