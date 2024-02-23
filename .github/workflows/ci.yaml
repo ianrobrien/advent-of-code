@@ -7,9 +7,6 @@ on:
     branches:
       - main
 
-permissions:
-  contents: write
-
 jobs:
   vale:
     runs-on: ubuntu-latest
@@ -26,6 +23,8 @@ jobs:
   build:
     needs: [vale]
     runs-on: ubuntu-latest
+    permissions:
+      contents: write    
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
