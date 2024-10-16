@@ -13,7 +13,7 @@
     <maven.compiler.target>21</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <lombok.version>1.18.34</lombok.version>
-    <logback.version>1.5.10</logback.version>
+    <logback.version>1.5.11</logback.version>
   </properties>
 
   <dependencyManagement>
