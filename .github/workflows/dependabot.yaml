@@ -3,6 +3,8 @@ name: Dependabot
 
 on:
   pull_request:
+    paths:
+      - 'java/**'
 
 jobs:
   dependabot:
