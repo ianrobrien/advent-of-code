@@ -1,4 +1,4 @@
-# advent-of-code
+# advent-of-code-java
 
 [![Continuous Integration](https://github.com/ianrobrien/advent-of-code/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/ianrobrien/advent-of-code/actions/workflows/ci.yaml)
 [![CodeQL](https://github.com/ianrobrien/advent-of-code/actions/workflows/codeql.yml/badge.svg)](https://github.com/ianrobrien/advent-of-code/actions/workflows/codeql.yml)
