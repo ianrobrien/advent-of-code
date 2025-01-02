@@ -43,6 +43,7 @@ jobs:
     if: needs.detect-changes.outputs.python == 'true'
     uses: ./.github/workflows/python_test.yaml
   ci-status-check:
+    name: Continuous Integration Status Check
     needs: [java-build, python-test]
     if: always()
     runs-on: ubuntu-latest
