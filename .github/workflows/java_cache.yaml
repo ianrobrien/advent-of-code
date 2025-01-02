@@ -1,10 +1,12 @@
 ---
-name: Cleanup Branch Caches
+name: Java Cleanup Branch Caches
 
 on:
   pull_request:
     types:
       - closed
+    paths:
+      - 'java/**'
 
 jobs:
   cleanup:
