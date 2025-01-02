@@ -22,6 +22,7 @@ jobs:
   detect-changes:
     outputs:
       java: ${{ steps.changes.outputs.java }}
+      python: ${{ steps.changes.outputs.python }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -31,12 +32,18 @@ jobs:
           filters: |
             java:
               - 'java/**'
-  build-java:
+            python:
+              - 'python/**'
+  java-build:
     needs: [vale, detect-changes]
     if: needs.detect-changes.outputs.java == 'true'
-    uses: ./.github/workflows/java_build.yml
+    uses: ./.github/workflows/java_build.yaml
+  python-test:
+    needs: [vale, detect-changes]
+    if: needs.detect-changes.outputs.python == 'true'
+    uses: ./.github/workflows/python_test.yaml
   ci-status-check:
-    needs: [build-java]
+    needs: [java-build, python-test]
     if: always()
     runs-on: ubuntu-latest
     steps:
