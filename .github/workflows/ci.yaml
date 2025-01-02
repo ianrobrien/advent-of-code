@@ -24,6 +24,7 @@ jobs:
       java: ${{ steps.changes.outputs.java }}
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: dorny/paths-filter@v3
         id: changes
         with:
