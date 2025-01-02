@@ -1,0 +1,43 @@
+---
+name: Continuous Integration
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  vale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: errata-ai/vale-action@reviewdog
+        with:
+          fail_on_error: true
+          reporter: github-check
+          vale_flags: "--glob=*.{md,txt}"
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  detect-changes:
+    outputs:
+      java: ${{ steps.changes.outputs.java }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            java:
+              - 'java/**'
+  build-java:
+    needs: [vale, detect-changes]
+    if: needs.detect-changes.outputs.java == 'true'
+    uses: ./.github/workflows/java_build.yml
+  ci-status-check:
+    needs: [build-java]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Exit successfully
+        run: exit 0
