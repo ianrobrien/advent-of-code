@@ -11,16 +11,16 @@ class TestPartFunctions(unittest.TestCase):
 
         # Assert the safe count value
         expected_safe_count = 379
-        self.assertEqual(safe_count, expected_safe_count)
+        self.assertEqual(expected_safe_count, safe_count)
 
     def test_part_two(self):
         resources_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'resources'))
         file_path = os.path.join(resources_dir, 'day02.txt')
-        first_column, second_column, similarity = part_two(file_path)
+        safe_count = part_two(file_path)
 
-        # Assert the distance value
-        expected_similarity = 23981443
-        self.assertEqual(similarity, expected_similarity)
+        # Assert the safe count value
+        expected_safe_count = 430
+        self.assertEqual(expected_safe_count, safe_count)
 
 if __name__ == '__main__':
     unittest.main()
