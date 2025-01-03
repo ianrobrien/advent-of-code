@@ -11,7 +11,7 @@ class TestPartFunctions(unittest.TestCase):
 
         # Assert the distance value
         expected_distance = 1258579
-        self.assertEqual(distance, expected_distance)
+        self.assertEqual(expected_distance, distance)
 
     def test_part_two(self):
         resources_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'resources'))
@@ -20,7 +20,7 @@ class TestPartFunctions(unittest.TestCase):
 
         # Assert the distance value
         expected_similarity = 23981443
-        self.assertEqual(similarity, expected_similarity)
+        self.assertEqual(expected_similarity, similarity)
 
 if __name__ == '__main__':
     unittest.main()
